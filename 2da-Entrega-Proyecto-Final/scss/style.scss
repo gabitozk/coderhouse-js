@@ -1,0 +1,297 @@
+//Space Grotesk Font --> font-family: 'Space Grotesk', sans-serif;
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
+
+$brand-color: #f77f00;
+$secondary-color: #003049;
+$fontFamily: 'Space Grotesk', sans-serif;
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    height: 100vh;
+    font-family: 'Space Grotesk', sans-serif;
+}
+
+header {
+    position: relative;
+    width: 100%;
+    height: 60px;
+    padding: 0.5rem 1rem 0.5rem 1rem;
+    border-bottom: 1px solid rgb(197, 197, 197);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: $secondary-color;
+    color: #fff;
+
+    nav {
+        ul {
+            list-style: none;
+            li {
+                display: inline-block;
+                margin-left: 1rem;
+
+                i{
+                    vertical-align: baseline;
+                }
+            }
+        }
+    }
+}
+
+#favoritos /*UL*/ {
+    position: absolute;
+    top: 60px;
+    right: 100px;
+    display: none;
+    width: 430px;
+    height: auto;
+    min-height: 100px;
+    padding: 10px;
+    border-end-start-radius: 8px;
+    border-end-end-radius: 8px;
+    background-color: #fff;
+    box-shadow: 0px 2px 5px 2px #d0d0d0;
+
+    &::before {
+        top: -20px;
+        content: "";
+        position: absolute;
+        right: 6px;
+        border: 10px outset transparent;
+        border-bottom: 10px solid #fff;
+    }
+
+    h4 {
+        margin-bottom: 1rem;
+        font-size: 1rem;
+        line-height: 2rem;
+        border-bottom: 1px solid rgb(211, 211, 211);
+        color: rgb(32, 32, 32);
+    }
+
+    .favImagen {
+        width: 25%;
+        margin-right: 20px;
+    }
+
+    img {
+        width: 100%;
+        vertical-align: middle;
+    }
+
+    li {
+        display: flex;
+        margin-left: 0;
+        margin-bottom: 1rem;
+
+        p {
+            color:rgb(32, 32, 32);
+        }
+
+        i {
+            cursor: pointer;
+            color: rgb(161, 35, 35);
+        }
+    }
+}
+
+main {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    background-color: rgb(241, 241, 241);
+    padding: 0.5rem 1rem 0.5rem 1rem;
+
+    aside#filtros {
+        width: 20%;
+        height: 70vh;
+        border-radius: 0.5rem;
+        padding: 1rem;
+        background-color: $brand-color;
+        display: flex;
+        flex-direction: column;
+
+        
+    }
+
+    section {
+        width: 80%;
+        padding: 0 1rem 0 1rem;
+
+        article#filtros-marcas {
+            display: flex;
+            flex-direction: row;
+            margin-bottom: 1rem;
+        }
+    }
+}
+
+.brand {
+    width: 10%;
+    padding: 1rem;
+    margin: 0 1rem 0 0;
+    border-radius: 0.5rem;
+    background-color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0px 1px 5px 2px #d0d0d0;
+
+    img {
+        width: 60%;
+    }
+}
+
+.card-autos {
+    width: 100%;
+    padding: 0.8rem;
+    background-color: #fff;
+    border-radius: 0.5rem;
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 1rem;
+    box-shadow: 0px 1px 5px 2px #d0d0d0;
+
+
+    h3 {
+        font-size: 1.5rem;
+        font-weight: 600;
+        line-height: 2rem;
+    }
+
+    p {
+        font-size: 0.9rem;
+    }
+    
+    img {
+        width: 30%;
+        margin-top: 1rem;
+    };
+
+    div.bloque-1 {
+        width: 60%;
+
+        ul {
+            list-style: none;
+            li {
+                display: inline-block;
+                margin-right: 2rem;
+
+                i{
+                    margin-right: 0.5rem;
+                }
+            }
+        }
+    }
+
+    div.bloque-2 {
+        width: 40%;
+        border-left: 1px solid rgb(238, 238, 238);
+        padding-left: 0.5rem;
+
+        h4 {
+            font-weight: 500;
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        button.boton-cotizar {
+            width: 50%;
+            font-family: $fontFamily;
+            font-weight: 400;
+            font-size: 1rem;
+            padding: 0.5rem;
+            margin-bottom: 0.3rem;
+            cursor: pointer;
+            background-color: $secondary-color;
+            color: #fff;
+            outline: inherit;
+            border: none;
+            border-radius: 20px;
+        }
+    }
+}
+
+section#formulario {
+    width: 60%;
+    height: 80vh;
+    padding: 1rem;
+    background-color: #fff;
+    margin: 1rem auto 1rem auto;
+    border-radius: 0.5rem;
+    box-shadow: 0px 1px 5px 2px #d0d0d0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+    > h1 {
+        font-size: 1.5rem;
+        font-weight: 400;
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+    }
+
+    article{
+        width: 60%;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        margin-top: 1rem;
+
+
+        label {
+            font-size: 0.8rem;
+        }
+
+        input {
+            width: 100%;
+            height: 2rem;
+            background-color: rgb(226, 226, 226);
+            border: 0;
+            border-radius: 0.3rem;
+            margin-bottom: 0.5rem;
+            padding: 0.5rem;
+        }
+
+        button {
+            width: 50%;
+            height: 2.3rem;
+            margin-left: 50%;
+            border: 0;
+            border-radius: 20px;
+            background-color: rgb(23, 21, 138);
+            color: #fff;
+            font-size: 1rem;
+            font-family: $fontFamily;
+            font-weight: 400;
+            margin-top: 1rem;
+            cursor: pointer;
+        }
+    } 
+}
+
+footer {
+    width: 100%;
+    height: 100px;
+    background-color: rgb(160, 160, 160);
+}
+
+
+/*Responsive*/
+@media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
+    main {
+        padding: 0.5rem 0 0.5rem 0;
+
+        section {
+            width: 100%;
+        }
+        aside#filtros {
+            display: none;
+        }
+    }
+}
