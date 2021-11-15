@@ -1,61 +1,3 @@
-$(document).ready(function(){
-  console.log("Todo listo")
-});
-
-////Array para hacer push de los productos/vehículos
-const vehiculos = [];
-
-////Clase principal para generar los vehículos
-class Autos {
-  constructor(marca, modelo, anio, id, precioDia, stock, imagen) {
-    this.marca = marca;
-    this.modelo = modelo;
-    this.anio = anio;
-    this.id = id;
-    this.precioDia = precioDia;
-    this.stock = stock;
-    this.imagen = imagen;
-  }
-
-  calcPrecioPorHora(horas) {
-    return this.precioHora * horas;
-  }
-
-  calcPrecioPorDia(dias) {
-    return this.precioDia * dias;
-  }
-
-  calcEnvioAuto(km) {
-    if (km <= 10) {
-      return 1920;
-    } else if (km > 10 && km <= 20) {
-      return 3290;
-    } else {
-      return 5290;
-    }
-  }
-
-  getStock() {
-    if (this.stock > 0) {
-      return true;
-    } else {
-      return false;
-    }
-  }
-}
-
-////Marca, Modelo, Año, precioHora, precioDia, stock
-/*vehiculos.push(
-  new Autos("Volkswagen", "Polo", 2020, 1, 4108, 6, "./img/gol.png")
-);*/
-vehiculos.push(
-  new Autos("Jeep", "Renegade", 2017, 2, 6510, 6, "./img/renegade.png")
-);
-vehiculos.push(
-  new Autos("Ford", "Focus", 2021, 3, 3300, 1, "./img/ecosport.png")
-);
-vehiculos.push(new Autos("Jeep", "Compass", 2021, 4, 4471, 2, "./img/hrv.jpg"));
-
 ////Filtros
 function filtroMayorPrecioDia(array) {
   array.sort((a, b) => {
@@ -259,7 +201,7 @@ function agregarFavorito(e) {
                           <img src="${car.imagen}">
                        </div>
                        <div>
-                          <p>${car.marca} ${car.modelo}</p>
+                          <p><b>${car.marca} ${car.modelo}</b></p>
                           <p>$${car.precioDia} p/día</p>
                           <p>ID: <span id="favHeaderId">${carId}</span></p>
                           <i id="deleteFavHeader" class="fas fa-trash"></i>
