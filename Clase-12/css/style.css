@@ -110,6 +110,9 @@ main section article#filtros-marcas {
   margin-bottom: 1rem;
 }
 
+#listado {
+  display: none;
+}
 #listado > p {
   margin: 1rem 0;
   font-weight: 500;

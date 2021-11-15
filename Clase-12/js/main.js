@@ -1,6 +1,8 @@
+
 $(document).ready(function(){
-  console.log("Todo listo")
+  $('#listado').fadeIn(800);
 });
+
 
 ////Array para hacer push de los productos/vehículos
 const vehiculos = [];
@@ -128,6 +130,7 @@ function insertarVehiculos() {
   let contenedorListado = document.getElementById("listado");
 
   for (let i = 0; i < vehiculos.length; i++) {
+    
     let cardAuto = `<div class="bloque-1">
                             <h3>${vehiculos[i].marca} ${vehiculos[i].modelo}</h3>
                             <p>Dentro de categoría de <strong>Autos Económicos</strong></p>
@@ -152,6 +155,7 @@ function insertarVehiculos() {
     divCard.innerHTML = cardAuto;
 
     contenedorListado.appendChild(divCard);
+    
   }
 }
 
@@ -269,7 +273,7 @@ function agregarFavorito(e) {
 
     liFavElement.querySelector('#deleteFavHeader').addEventListener('click', eliminarFavoritoHeader);
 
-    $(fav).removeClass('far').addClass('fas').css("color", "red")                
+    $(fav).removeClass('far').addClass('fas').css("color", "red");                
     
     localStorage.setItem(carId, JSON.stringify(car));
   
