@@ -1,0 +1,71 @@
+[
+    {
+        "id": 1,
+        "marca": "Volkswagen",
+        "modelo": "Polo",
+        "anio": 2019,
+        "precioDia": 4180,
+        "imagen": "./img/gol.png",
+        "puertas": 5,
+        "caracteristicas": {
+            "personas": 4,
+            "ac": true,
+            "valijas": 1,
+            "transmision": "manual"
+        },
+        "categoria": "Económicos"
+    },
+    
+    {
+        "id": 2,
+        "marca": "Jeep",
+        "modelo": "Renegade",
+        "anio": 2017,
+        "precioDia": 6102,
+        "imagen": "./img/renegade.png",
+        "puertas": 5,
+        "caracteristicas": {
+            "personas": 5,
+            "ac": true,
+            "valijas": 2,
+            "transmision": "manual"
+        },
+        "categoria": "SUV"
+    },
+
+    {
+        "id": 3,
+        "marca": "Ford",
+        "modelo": "Ecosport",
+        "anio": 2020,
+        "precioDia": 5224,
+        "imagen": "./img/ecosport.png",
+        "puertas": 5,
+        "caracteristicas": {
+            "personas": 5,
+            "ac": true,
+            "valijas": 1,
+            "transmision": "manual"
+        },
+        "categoria": "SUV"
+    },
+
+    {
+        "id": 4,
+        "marca": "Honda",
+        "modelo": "HRV",
+        "anio": 2018,
+        "precioDia": 4471,
+        "imagen": "./img/hrv.jpg",
+        "puertas": 5,
+        "caracteristicas": {
+            "personas": 5,
+            "ac": true,
+            "valijas": 2,
+            "transmision": "manual"
+        },
+        "categoria": "Camionetas"
+    }
+    
+
+]

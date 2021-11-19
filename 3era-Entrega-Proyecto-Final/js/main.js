@@ -1,106 +1,64 @@
-////Filtros
-function filtroMayorPrecioDia(array) {
-  array.sort((a, b) => {
-    if (a.precioDia < b.precioDia) {
-      return 1;
-    }
-
-    if (a.precioDia > b.precioDia) {
-      return -1;
-    }
-
-    return 0;
-  });
+/*JSON de autos como DB*/
+const urlCars = "http://127.0.0.1:5500/3era-Entrega-Proyecto-Final/json/autos.json";
+const getCars = () => {
+  $.get(urlCars, function (autos) {
+    console.log(autos);
+  })
 }
 
-function filtroMenorPrecioDia(array) {
-  array.sort((a, b) => {
-    if (a.precioDia < b.precioDia) {
-      return -1;
-    }
-
-    if (a.precioDia > b.precioDia) {
-      return 1;
-    }
-
-    return 0;
-  });
-}
-
-function filtroMayorPrecioHora(array) {
-  array.sort((a, b) => {
-    if (a.precioHora < b.precioHora) {
-      return 1;
-    }
-
-    if (a.precioHora > b.precioHora) {
-      return -1;
-    }
-
-    return 0;
-  });
-}
-
-function filtroMenorPrecioHora(array) {
-  array.sort((a, b) => {
-    if (a.precioHora < b.precioHora) {
-      return -1;
-    }
-
-    if (a.precioHora > b.precioHora) {
-      return 1;
-    }
-
-    return 0;
-  });
-}
-
-function filtroMarca(array) {
-  let marca = prompt("Ingrese la marca que desea filtrar:").toLocaleLowerCase();
-
-  for (let item of array) {
-    if (item.marca.toLocaleLowerCase() == marca) {
-      console.log(item);
-    }
-  }
-}
+getCars();
 
 function insertarVehiculos() {
   ///Inserta autos en el HTML con los vehiculos disponibles en el array
-  let contenedorListado = document.getElementById("listado");
+  let contenedorListado = document.querySelector("#listado");
+  
+  $.get(urlCars, function(autos) {
+    ///Muestra cantidad de vehículos encontrados
+    $('#resultado-vehiculos').text(autos.length);
 
-  for (let i = 0; i < vehiculos.length; i++) {
-    let cardAuto = `<div class="bloque-1">
-                            <h3>${vehiculos[i].marca} ${vehiculos[i].modelo}</h3>
-                            <p>Dentro de categoría de <strong>Autos Económicos</strong></p>
-                            <p>ID: <span class="carId">${vehiculos[i].id}</span></p>
-                            <img src="${vehiculos[i].imagen}" alt="">
-                            <ul>
-                                <li><i class="far fa-snowflake"></i>Aire acondicionado</li>
-                                <li><i class="fas fa-suitcase-rolling"></i>2 Valijas</li>
-                                <li><i class="fas fa-users"></i>5 personas</li>
-                                <li><i class="fas fa-baby-carriage"></i>Silla de bebé</li>
-                            </ul>
-                        </div>
-                        <div class="bloque-2">
-                            <p>Precio final p/día</p>
-                            <h4>$${vehiculos[i].precioDia}</h4>
-                            <button class="boton-cotizar">Cotizar</button>
-                            <i class="far fa-heart heartM"></i>
-                        </div>`;
-
-    let divCard = document.createElement("div");
-    divCard.classList.add("card-autos");
-    divCard.innerHTML = cardAuto;
-
-    contenedorListado.appendChild(divCard);
+    ///Recorre JSON e inserta vehículos
+    for (let auto of autos) {
+      let cardAuto = `<div class="bloque-1">
+                              <h3>${auto.marca} ${auto.modelo}</h3>
+                              <p>Dentro de categoría <strong>${auto.categoria}</strong></p>
+                              <p>ID: <span class="carId">${auto.id}</span></p>
+                              <img src="${auto.imagen}" alt="foto vehículo">
+                              <ul>
+                                  <li><i class="far fa-snowflake"></i>Aire acondicionado</li>
+                                  <li><i class="fas fa-suitcase-rolling"></i>${auto.caracteristicas.valijas} valijas</li>
+                                  <li><i class="fas fa-users"></i>${auto.caracteristicas.personas} personas</li>
+                                  <li><i class="fas fa-baby-carriage"></i>Silla de bebé</li>
+                              </ul>
+                          </div>
+                          <div class="bloque-2">
+                              <p>Precio final p/día</p>
+                              <h4>$${auto.precioDia}</h4>
+                              <button class="boton-cotizar">Cotizar</button>
+                              <i class="far fa-heart heartM"></i>
+                          </div>`;
+  
+      let divCard = document.createElement("div");
+      divCard.classList.add("card-autos");
+      divCard.innerHTML = cardAuto;
+  
+      contenedorListado.appendChild(divCard);
+    }
   }
+  ).fail(function(){console.log("Verificar código")});
 }
 
-insertarVehiculos(); ////Llama e inserta vehiculos
+///Llama a función
+insertarVehiculos();
 
-////Muestro la cantidad de vehiculos 
-$('#resultado-vehiculos').text(vehiculos.length);
+////Filtros categorias
+const botonCategoriaEconomicos = document.querySelector('#filtro-economicos');
+const botonCategoriaCamionetas = document.querySelector('#filtro-camionetas');
+const botonCategoriaMedianos = document.querySelector('#filtro-medianos');
+
+function filtroEconomicos(){
+
+}
+
 
 ///Llamo a todos los botones 'Cotizar'
 let botonCotizar = document.querySelectorAll(".boton-cotizar");
@@ -246,3 +204,5 @@ function eliminarFavoritoHeader(e) {
 
   localStorage.removeItem(carId);
 }
+
+
