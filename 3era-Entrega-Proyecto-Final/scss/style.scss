@@ -14,6 +14,7 @@ $fontFamily: 'Space Grotesk', sans-serif;
 body {
     height: 100vh;
     font-family: 'Space Grotesk', sans-serif;
+    background-color: #f1f1f1;
 }
 
 header {
@@ -133,6 +134,8 @@ main {
 }
 
 #listado {
+    display: none;
+
     > p {
         margin: 1rem 0;
         font-weight: 500;
@@ -162,6 +165,11 @@ main {
     img {
         width: 20%;
     }
+
+}
+
+.activo {
+    background-color: #cac2fa;
 }
 
 .card-autos {
@@ -295,7 +303,7 @@ section#formulario {
 footer {
     width: 100%;
     height: 100px;
-    background-color: rgb(160, 160, 160);
+    background-color: rgb(66, 66, 66);
 }
 
 

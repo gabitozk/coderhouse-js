@@ -5,8 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./css/style.css">
-    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
-    <title>Clase 12</title>
+    <title>3era Entrega</title>
 </head>
 <body>
     <header>
@@ -67,17 +66,20 @@
         <section>
             <article id="filtros-categorias">
                 <!--Económicos-->
-                <div class="filter" id="filtro-economicos">
+                <div class="filter activo" id="filtro-todos">
+                    <p>Todos</p>
+                </div>
+                <div class="filter">
                     <img src="./img/gol.png" alt="jeep logo">
                     <p>Económicos</p>
                 </div>
                 <!--Camionetas-->
-                <div class="filter" id="filtro-camionetas">
+                <div class="filter">
                     <img src="./img/renegade.png" alt="jeep logo">
                     <p>Camionetas</p>
                 </div>
                 <!--Medianos-->
-                <div class="filter" id="filtro-medianos">
+                <div class="filter">
                     <img src="./img/ecosport.png" alt="jeep logo">
                     <p>Medianos</p>
                 </div>
@@ -87,14 +89,16 @@
                 <p>Hay <span id="resultado-vehiculos"></span> modelos disponibles</p>
             </article>
         </section>
+        
     </main>
-
+    
     <footer>
     </footer>
 
     <!--Iconos Fontawesome-->
     <script src="https://kit.fontawesome.com/d510e61bb6.js" crossorigin="anonymous"></script>
     <!--Script principal-->
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
     <script src="./js/main.js"></script>
 </body>
 </html>

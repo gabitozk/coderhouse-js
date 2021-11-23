@@ -1,23 +1,81 @@
 /*JSON de autos como DB*/
-const urlCars = "http://127.0.0.1:5500/3era-Entrega-Proyecto-Final/json/autos.json";
-const getCars = () => {
-  $.get(urlCars, function (autos) {
-    console.log(autos);
-  })
-}
+const urlCars =
+  "http://127.0.0.1:5500/3era-Entrega-Proyecto-Final/json/autos.json";
 
-getCars();
+let autos = (function () {
+  let json = null;
+  $.ajax({
+    async: false,
+    global: false,
+    url: urlCars,
+    dataType: "json",
+    success: function (data) {
+      json = data;
+    },
+  });
+  return json;
+})();
 
 function insertarVehiculos() {
   ///Inserta autos en el HTML con los vehiculos disponibles en el array
   let contenedorListado = document.querySelector("#listado");
-  
-  $.get(urlCars, function(autos) {
-    ///Muestra cantidad de vehículos encontrados
-    $('#resultado-vehiculos').text(autos.length);
+  contenedorListado.innerHTML = "";
 
-    ///Recorre JSON e inserta vehículos
-    for (let auto of autos) {
+  ///Muestra cantidad de vehículos encontrados
+  $("#resultado-vehiculos").text(autos.length);
+
+  ///Recorre JSON e inserta vehículos
+  for (let auto of autos) {
+    let cardAuto = `<div class="bloque-1">
+                                <h3>${auto.marca} ${auto.modelo}</h3>
+                                <p>Dentro de categoría <strong>${auto.categoria}</strong></p>
+                                <p>ID: <span class="carId">${auto.id}</span></p>
+                                <img src="${auto.imagen}" alt="foto vehículo">
+                                <ul>
+                                    <li><i class="far fa-snowflake"></i>Aire acondicionado</li>
+                                    <li><i class="fas fa-suitcase-rolling"></i>${auto.caracteristicas.valijas} valijas</li>
+                                    <li><i class="fas fa-users"></i>${auto.caracteristicas.personas} personas</li>
+                                    <li><i class="fas fa-baby-carriage"></i>Silla de bebé</li>
+                                </ul>
+                            </div>
+                            <div class="bloque-2">
+                                <p>Precio final p/día</p>
+                                <h4>$${auto.precioDia}</h4>
+                                <button class="boton-cotizar">Cotizar</button>
+                                <i class="far fa-heart heartM"></i>
+                            </div>`;
+
+    let divCard = document.createElement("div");
+    divCard.classList.add("card-autos");
+    divCard.innerHTML = cardAuto;
+
+    contenedorListado.appendChild(divCard);
+  }
+
+  $("#listado").fadeIn(500);
+}
+
+///Llama a función
+insertarVehiculos();
+
+////Filtros categorias
+const botonFiltroCategoria = document.querySelectorAll(".filter");
+const botonFiltroTodos = document.querySelector("#filtro-todos");
+
+botonFiltroTodos.addEventListener("click", function () {
+  insertarVehiculos();
+});
+
+for (let boton of botonFiltroCategoria) {
+  boton.addEventListener("click", filtroCategoria);
+}
+
+function filtroCategoria(e) {
+  let contenedorListado = document.querySelector("#listado");
+  let categoria = e.currentTarget.querySelector("p").textContent;
+
+  for (let auto of autos) {
+    if (auto.categoria == categoria) {
       let cardAuto = `<div class="bloque-1">
                               <h3>${auto.marca} ${auto.modelo}</h3>
                               <p>Dentro de categoría <strong>${auto.categoria}</strong></p>
@@ -36,29 +94,28 @@ function insertarVehiculos() {
                               <button class="boton-cotizar">Cotizar</button>
                               <i class="far fa-heart heartM"></i>
                           </div>`;
-  
+
       let divCard = document.createElement("div");
       divCard.classList.add("card-autos");
       divCard.innerHTML = cardAuto;
-  
+
+      contenedorListado.innerHTML = "";
       contenedorListado.appendChild(divCard);
     }
   }
-  ).fail(function(){console.log("Verificar código")});
+
+  let classFilter = document.querySelectorAll(".filter");
+  for (let i = 0; i < classFilter.length; i++) {
+    for (let j = 0; j < classFilter[i].classList.length; j++) {
+      if (classFilter[i].classList[j] == "activo") {
+        classFilter[i].classList.remove("activo");
+      }
+    }
+  }
+
+  e.currentTarget.classList.add("activo");
+  cargarFavoritos();
 }
-
-///Llama a función
-insertarVehiculos();
-
-////Filtros categorias
-const botonCategoriaEconomicos = document.querySelector('#filtro-economicos');
-const botonCategoriaCamionetas = document.querySelector('#filtro-camionetas');
-const botonCategoriaMedianos = document.querySelector('#filtro-medianos');
-
-function filtroEconomicos(){
-
-}
-
 
 ///Llamo a todos los botones 'Cotizar'
 let botonCotizar = document.querySelectorAll(".boton-cotizar");
@@ -98,46 +155,51 @@ function cotizar(e) {
 //////////FAVORITOS
 
 const favsOnLocal = [];
-
-const cardAutos = document.querySelectorAll(".card-autos");
 const botonFav = document.querySelectorAll(".fa-heart");
+const cardAutos = document.querySelectorAll(".card-autos");
 const favHeader = document.querySelector("#favoritos");
 
-for (i = 0; i < localStorage.length; i++) {
-  let itemKey = localStorage.key(i);
+$("#dropdown-favoritos").click(function () {
+  $("#favoritos").fadeToggle(200);
+});
 
-  favsOnLocal.push(JSON.parse(localStorage.getItem(itemKey)));
+function cargarFavoritos() {
+  for (i = 0; i < localStorage.length; i++) {
+    let itemKey = localStorage.key(i);
 
-  for (j = 0; j < cardAutos.length; j++) {
-    if (cardAutos[j].querySelector(".carId").textContent == itemKey) {
-      cardAutos[j].querySelector(".heartM").classList.remove("far");
-      cardAutos[j].querySelector(".heartM").classList.add("fas");
-      cardAutos[j].querySelector(".heartM").style.color = "red";
+    favsOnLocal.push(JSON.parse(localStorage.getItem(itemKey)));
 
-      let car = vehiculos.find(e => e.id == cardAutos[j].querySelector(".carId").textContent);
+    for (j = 0; j < cardAutos.length; j++) {
+      if (cardAutos[j].querySelector(".carId").textContent == itemKey) {
+        cardAutos[j].querySelector(".heartM").classList.remove("far");
+        cardAutos[j].querySelector(".heartM").classList.add("fas");
+        cardAutos[j].querySelector(".heartM").style.color = "red";
 
-      let liFav = document.createElement("li");
-      liFav.innerHTML = `<div class="favImagen">
-                            <img src="${car.imagen}">
-                         </div>
-                         <div>
-                            <p><b>${car.marca} ${car.modelo}</b></p>
-                            <p>$${car.precioDia} p/día</p>
-                            <p>ID: <span id="favHeaderId">${car.id}</span></p>
-                            <i id="deleteFavHeader" class="fas fa-trash"></i>
-                         </div>`;
+        let car = autos.find(
+          (e) => e.id == cardAutos[j].querySelector(".carId").textContent
+        );
 
-      let liFavElement = favHeader.appendChild(liFav);
-      console.log(favHeader);
-      liFavElement.querySelector('#deleteFavHeader').addEventListener('click', eliminarFavoritoHeader);
+        let liFav = document.createElement("li");
+        liFav.innerHTML = `<div class="favImagen">
+                                <img src="${car.imagen}">
+                             </div>
+                             <div>
+                                <p><b>${car.marca} ${car.modelo}</b></p>
+                                <p>$${car.precioDia} p/día</p>
+                                <p>ID: <span id="favHeaderId">${car.id}</span></p>
+                                <i id="deleteFavHeader" class="fas fa-trash"></i>
+                             </div>`;
+
+        let liFavElement = favHeader.appendChild(liFav);
+        liFavElement
+          .querySelector("#deleteFavHeader")
+          .addEventListener("click", eliminarFavoritoHeader);
+      }
     }
   }
 }
 
-$('#dropdown-favoritos').click(function(){
-  $('#favoritos').fadeToggle(200);
-});
-
+cargarFavoritos();
 
 for (let fav of botonFav) {
   fav.addEventListener("click", agregarFavorito);
@@ -150,10 +212,9 @@ function agregarFavorito(e) {
   let carId = parentFav.querySelector(".carId").textContent;
 
   //Capturo el vehiculo en el array principal
-  let car = vehiculos.find((e) => e.id == carId);
+  let car = autos.find((e) => e.id == carId);
 
   if (localStorage.getItem(carId) == null) {
-  
     let liFav = document.createElement("li");
     liFav.innerHTML = `<div class="favImagen">
                           <img src="${car.imagen}">
@@ -167,14 +228,14 @@ function agregarFavorito(e) {
 
     let liFavElement = favHeader.appendChild(liFav);
 
-    liFavElement.querySelector('#deleteFavHeader').addEventListener('click', eliminarFavoritoHeader);
+    liFavElement
+      .querySelector("#deleteFavHeader")
+      .addEventListener("click", eliminarFavoritoHeader);
 
-    $(fav).removeClass('far').addClass('fas').css("color", "red")                
-    
+    $(fav).removeClass("far").addClass("fas").css("color", "red");
+
     localStorage.setItem(carId, JSON.stringify(car));
-  
   } else {
-  
     let spanId = favHeader.querySelectorAll("#favHeaderId");
 
     for (let item of spanId) {
@@ -183,26 +244,23 @@ function agregarFavorito(e) {
       }
     }
 
-    $(fav).removeClass('fas').addClass('far').css("color", "black")    
-  
+    $(fav).removeClass("fas").addClass("far").css("color", "black");
+
     localStorage.removeItem(carId);
   }
 }
 
-
 ////////////////
-let trashFavorito = document.querySelectorAll('#deleteFavHeader');
+let trashFavorito = document.querySelectorAll("#deleteFavHeader");
 
 for (let trash of trashFavorito) {
   trash.addEventListener("click", eliminarFavoritoHeader);
 }
 
 function eliminarFavoritoHeader(e) {
-  let carId = e.target.parentNode.querySelector('#favHeaderId').textContent;
-  
+  let carId = e.target.parentNode.querySelector("#favHeaderId").textContent;
+
   e.target.parentNode.parentNode.remove();
 
   localStorage.removeItem(carId);
 }
-
-
