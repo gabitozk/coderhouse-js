@@ -117,41 +117,6 @@ function filtroCategoria(e) {
   cargarFavoritos();
 }
 
-///Llamo a todos los botones 'Cotizar'
-let botonCotizar = document.querySelectorAll(".boton-cotizar");
-
-///Agrego un listener a cada boton
-for (let boton of botonCotizar) {
-  boton.addEventListener("click", cotizar);
-}
-
-function cotizar(e) {
-  let contenedor = document.getElementById("content");
-
-  contenedor.innerHTML = `<section id="formulario">
-                            <h1>Ingrese sus datos</h1>
-                            <article>
-                                <label>Nombre</label>
-                                <input id ="input-nombre"type="text" placeholder="Escriba su nombre">        
-                            </article>
-                            <article>
-                                <label>Apellido</label>
-                                <input id="input-apellido" type="text" placeholder="Escriba su apellido">        
-                            </article>
-                            <article>
-                                <label>Telefono</label>
-                                <input id="input-telefono" type="Number" placeholder="Ingrese su teléfono">        
-                            </article>
-                            <article>
-                                <label>Email</label>
-                                <input id="input-email" type="email" placeholder="Escriba su email">        
-                            </article>
-                            <article>
-                                <button>Continuar</button>
-                            </article>
-                          </section>`;
-}
-
 //////////FAVORITOS
 
 const favsOnLocal = [];
@@ -263,4 +228,40 @@ function eliminarFavoritoHeader(e) {
   e.target.parentNode.parentNode.remove();
 
   localStorage.removeItem(carId);
+}
+
+/*COTIZAR*/
+///Llamo a todos los botones 'Cotizar'
+let botonCotizar = document.querySelectorAll(".boton-cotizar");
+
+///Agrego un listener a cada boton
+for (let boton of botonCotizar) {
+  boton.addEventListener("click", cotizar);
+}
+
+function cotizar(e) {
+  let contenedor = document.getElementById("content");
+
+  contenedor.innerHTML = `<section id="formulario">
+                            <h1>Ingrese sus datos</h1>
+                            <article>
+                                <label>Nombre</label>
+                                <input id ="input-nombre"type="text" placeholder="Escriba su nombre">        
+                            </article>
+                            <article>
+                                <label>Apellido</label>
+                                <input id="input-apellido" type="text" placeholder="Escriba su apellido">        
+                            </article>
+                            <article>
+                                <label>Telefono</label>
+                                <input id="input-telefono" type="Number" placeholder="Ingrese su teléfono">        
+                            </article>
+                            <article>
+                                <label>Email</label>
+                                <input id="input-email" type="email" placeholder="Escriba su email">        
+                            </article>
+                            <article>
+                                <button>Continuar</button>
+                            </article>
+                          </section>`;
 }
