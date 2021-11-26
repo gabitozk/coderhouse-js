@@ -65,6 +65,23 @@
             "transmision": "manual"
         },
         "categoria": "Camionetas"
+    },
+
+    {
+        "id": 4,
+        "marca": "Honda",
+        "modelo": "HRV",
+        "anio": 2018,
+        "precioDia": 4471,
+        "imagen": "./img/hrv.jpg",
+        "puertas": 5,
+        "caracteristicas": {
+            "personas": 5,
+            "ac": true,
+            "valijas": 2,
+            "transmision": "manual"
+        },
+        "categoria": "Económicos"
     }
     
 

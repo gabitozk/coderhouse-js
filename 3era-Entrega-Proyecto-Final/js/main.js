@@ -1,12 +1,12 @@
 /*JSON de autos como DB*/
 const urlCars =
-  "http://127.0.0.1:5500/3era-Entrega-Proyecto-Final/json/autos.json";
+  "./json/autos.json";
 
 let autos = (function () {
   let json = null;
   $.ajax({
     async: false,
-    global: false,
+    //global: false,
     url: urlCars,
     dataType: "json",
     success: function (data) {
@@ -15,6 +15,8 @@ let autos = (function () {
   });
   return json;
 })();
+
+console.log(autos);
 
 function insertarVehiculos() {
   ///Inserta autos en el HTML con los vehiculos disponibles en el array
@@ -72,6 +74,8 @@ for (let boton of botonFiltroCategoria) {
 
 function filtroCategoria(e) {
   let contenedorListado = document.querySelector("#listado");
+  contenedorListado.innerHTML = "";
+  
   let categoria = e.currentTarget.querySelector("p").textContent;
 
   for (let auto of autos) {
@@ -99,10 +103,18 @@ function filtroCategoria(e) {
       divCard.classList.add("card-autos");
       divCard.innerHTML = cardAuto;
 
-      contenedorListado.innerHTML = "";
       contenedorListado.appendChild(divCard);
     }
   }
+
+  //Llamo a todos los botones 'Cotizar'
+  let botonCotizar = $(".boton-cotizar");
+  ///Agrego un listener a cada boton
+  botonCotizar.click(cotizar);
+
+  let botonFav = $(".fa-heart");
+  botonFav.click(agregarFavorito);
+
 
   let classFilter = document.querySelectorAll(".filter");
   for (let i = 0; i < classFilter.length; i++) {
@@ -114,7 +126,7 @@ function filtroCategoria(e) {
   }
 
   e.currentTarget.classList.add("activo");
-  cargarFavoritos();
+  
 }
 
 //////////FAVORITOS
