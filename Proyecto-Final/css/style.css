@@ -241,7 +241,7 @@ section#auto-detalle .auto-caracteristicas div ul li {
 section#auto-detalle .auto-cotiza {
   width: 60%;
   height: auto;
-  padding: 1.5rem 1rem 0.5rem 1rem;
+  padding: 1.5rem 1rem 1rem 1rem;
   border: 1px solid #dbdbdb;
   border-radius: 0.5rem;
   background-color: #fff;
@@ -273,6 +273,31 @@ section#auto-detalle .auto-cotiza .boton-compra {
   font-weight: 400;
   font-size: 1rem;
   cursor: pointer;
+}
+section#auto-detalle .auto-cotiza form {
+  margin-top: 1rem;
+}
+section#auto-detalle .auto-cotiza form label {
+  display: block;
+  margin-top: 0.5rem;
+  margin-bottom: 0.3rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #003049;
+  text-transform: uppercase;
+}
+section#auto-detalle .auto-cotiza form input[type=text],
+section#auto-detalle .auto-cotiza form input[type=email] {
+  width: 50%;
+  height: 35px;
+}
+section#auto-detalle .auto-cotiza form input[type=number] {
+  width: 40%;
+  height: 35px;
+}
+section#auto-detalle .auto-cotiza form ul li {
+  margin: 0;
+  display: inline-block;
 }
 
 footer {

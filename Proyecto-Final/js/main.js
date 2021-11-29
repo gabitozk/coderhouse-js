@@ -101,7 +101,7 @@ function filtroCategoria(e) {
       contenedorListado.appendChild(divCard);
     }
   } else if(!autosFilter.length && categoria !== "Todos"){
-    return
+    return;
   }
   else {
     insertarVehiculos();
@@ -298,12 +298,48 @@ function cotizar(e) {
                         `
   sectionAuto.appendChild(divCotiza);
                         
-  $('.boton-compra').click(comprar);
+  $('.boton-compra').click(insertarFormulario);
 
 }
 
 
-function comprar(e) {
-  console.log(e.target.parentNode);
+function insertarFormulario(e) {
+  let precio = e.target.parentNode.querySelector('b').textContent;
+  let divCompra = document.querySelector(".auto-cotiza");
+  
+  divCompra.innerHTML = `<h2>Total a pagar: ${precio}</h2>
+                         
+                         <form id="datos-personales">
+                          <h3>Ingresá tus datos</h3>
+                          <label>Nombre</label>
+                          <input type="text" placeholder="Ingresá tu nombre" required>
+                          <label>Apellido</label>
+                          <input type="text" placeholder="Ingresá tu apellido" required>
+                          <label>Email</label>
+                          <input type="email" placeholder="Ingresá tu email" required>
+                         </form>  
+
+                         
+                          <form id="metodo-pago">
+                          <h3>Método de pago</h3>
+                          <ul>
+                            <li><i class="fab fa-cc-visa"></i></li>
+                            <li><i class="fab fa-cc-mastercard"></i></li>
+                            <li><i class="fab fa-cc-paypal"></i></li>
+                          </ul>
+                          <label>Numero de tarjeta</label>
+                          <input type="number" required>
+                          <label>Código de seguridad</label>
+                          <input type="number" required>
+                          <input type="button" value="Pagar" id="confirmar-pago" onclick="comprar()">
+                         </form>
+                        `
+
 }
+
+function comprar() {
+  
+}
+
+
 
