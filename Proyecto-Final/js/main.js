@@ -6,6 +6,7 @@ let autos = (function () {
   let json = null;
   $.ajax({
     async: false,
+    global: false,
     url: urlCars,
     dataType: "json",
     success: function (data) {
@@ -14,8 +15,6 @@ let autos = (function () {
   });
   return json;
 })();
-
-console.log(autos);
 
 function insertarVehiculos() {
   ///Inserta autos en el HTML con los vehiculos disponibles en el array
@@ -61,11 +60,6 @@ insertarVehiculos();
 
 ////Filtros categorias
 const botonFiltroCategoria = document.querySelectorAll(".filter");
-const botonFiltroTodos = document.querySelector("#filtro-todos");
-
-botonFiltroTodos.addEventListener("click", function () {
-  insertarVehiculos();
-});
 
 for (let boton of botonFiltroCategoria) {
   boton.addEventListener("click", filtroCategoria);
@@ -73,12 +67,14 @@ for (let boton of botonFiltroCategoria) {
 
 function filtroCategoria(e) {
   let contenedorListado = document.querySelector("#listado");
-  contenedorListado.innerHTML = "";
-  
   let categoria = e.currentTarget.querySelector("p").textContent;
 
-  for (let auto of autos) {
-    if (auto.categoria == categoria) {
+  contenedorListado.innerHTML = "";
+
+  let autosFilter = autos.filter(auto => auto.categoria == categoria)
+
+  if (autosFilter.length) {
+    for (let auto of autosFilter) {
       let cardAuto = `<div class="bloque-1">
                               <h3>${auto.marca} ${auto.modelo}</h3>
                               <p>Dentro de categoría <strong>${auto.categoria}</strong></p>
@@ -104,16 +100,12 @@ function filtroCategoria(e) {
 
       contenedorListado.appendChild(divCard);
     }
+  } else if(!autosFilter.length && categoria !== "Todos"){
+    return
   }
-
-  //Llamo a todos los botones 'Cotizar'
-  let botonCotizar = $(".boton-cotizar");
-  ///Agrego un listener a cada boton
-  botonCotizar.click(cotizar);
-
-  let botonFav = $(".fa-heart");
-  botonFav.click(agregarFavorito);
-
+  else {
+    insertarVehiculos();
+  }
 
   let classFilter = document.querySelectorAll(".filter");
   for (let i = 0; i < classFilter.length; i++) {
@@ -126,6 +118,8 @@ function filtroCategoria(e) {
 
   e.currentTarget.classList.add("activo");
   
+  let botonCotizar = $('.boton-cotizar');
+  botonCotizar.click(cotizar);
 }
 
 //////////FAVORITOS
@@ -252,27 +246,64 @@ for (let boton of botonCotizar) {
 
 function cotizar(e) {
   let contenedor = document.getElementById("content");
+  let id = e.target.parentNode.parentNode.querySelector('.carId').textContent;
+  let car = autos.find( e => e.id == id);
 
-  contenedor.innerHTML = `<section id="formulario">
-                            <h1>Ingrese sus datos</h1>
-                            <article>
-                                <label>Nombre</label>
-                                <input id ="input-nombre"type="text" placeholder="Escriba su nombre">        
-                            </article>
-                            <article>
-                                <label>Apellido</label>
-                                <input id="input-apellido" type="text" placeholder="Escriba su apellido">        
-                            </article>
-                            <article>
-                                <label>Telefono</label>
-                                <input id="input-telefono" type="Number" placeholder="Ingrese su teléfono">        
-                            </article>
-                            <article>
-                                <label>Email</label>
-                                <input id="input-email" type="email" placeholder="Escriba su email">        
-                            </article>
-                            <article>
-                                <button>Continuar</button>
-                            </article>
-                          </section>`;
+  contenedor.innerHTML = "";
+
+  let section = document.createElement('section');
+  let div = document.createElement('div');
+  
+  let sectionAuto = section;
+  sectionAuto.setAttribute('id', "auto-detalle");
+
+  contenedor.appendChild(sectionAuto);
+
+  ///Características auto 
+  div.setAttribute('class', "auto-caracteristicas");
+
+  div.innerHTML = `<img src="${car.imagen}">
+                    <h3>${car.marca} ${car.modelo}</h3>
+                    <h4>Características</h4>
+                    <ul>
+                      <li><i class="far fa-snowflake"></i>Aire acondicionado</li>
+                      <li><i class="fas fa-suitcase-rolling"></i>${car.caracteristicas.valijas} valijas</li>
+                      <li><i class="fas fa-users"></i>${car.caracteristicas.personas} personas</li>
+                      <li><i class="fas fa-baby-carriage"></i>Silla de bebé</li>
+                   </ul>
+                   <div>
+                    <ul>
+                      <li><i class="fas fa-check"></i>Cancelación gratuita</li>
+                      <li><i class="fas fa-check"></i>Reserva flexible</li>
+                      <li><i class="fas fa-check"></i>Seguro incluido</li> 
+                    </ul>
+                   </div> 
+                   `
+  
+  sectionAuto.appendChild(div);
+
+  ///Seleccion de dias y precio
+  let divCotiza = document.createElement('div');
+  
+  divCotiza.setAttribute('class', "auto-cotiza");
+
+  divCotiza.innerHTML = `<h2>Resumen de compra</h2>
+                         <h5><span>$${car.precioDia}</span> p/día</h5>
+                         <ul>
+                          <li>Alquiler por 3 días total <b>$${car.precioDia * 3}</b><button class="boton-compra">Comprar</button></li>
+                          <li>Alquiler por 5 días total <b>$${car.precioDia * 5}</b><button class="boton-compra">Comprar</button></li>
+                          <li>Alquiler por 7 días total <b>$${car.precioDia * 7}</b><button class="boton-compra">Comprar</button></li>
+                          <li>Alquiler por 10 días total <b>$${car.precioDia * 10}</b><button class="boton-compra">Comprar</button></li>
+                         </ul>
+                        `
+  sectionAuto.appendChild(divCotiza);
+                        
+  $('.boton-compra').click(comprar);
+
 }
+
+
+function comprar(e) {
+  console.log(e.target.parentNode);
+}
+
