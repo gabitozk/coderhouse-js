@@ -334,11 +334,26 @@ function insertarFormulario(e) {
                           <input type="button" value="Pagar" id="confirmar-pago" onclick="comprar()">
                          </form>
                         `
-
+  precioForm = precio;
 }
 
+let precioForm;
+
 function comprar() {
+  setTimeout (function() { 
+
+
+    let modal = document.querySelector('#modal-pago');
+    modal.style.display = "block";
   
+    let modalContenido = document.querySelector('.modal-contenido');
+    modalContenido.innerHTML = `<h2>Te confirmamos el pago!</h2>
+                                <h4>Pagaste total ${precioForm}</h4>
+                                <p></p>`
+
+
+   }, 1000)
+ 
 }
 
 
