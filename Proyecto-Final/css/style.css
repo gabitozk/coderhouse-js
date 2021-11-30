@@ -298,6 +298,20 @@ section#auto-detalle .auto-cotiza form input[type=number] {
   width: 40%;
   height: 35px;
 }
+section#auto-detalle .auto-cotiza form input[type=submit] {
+  display: block;
+  width: 100%;
+  height: 30px;
+  margin-top: 1rem;
+  border: none;
+  border-radius: 50px;
+  background-color: #ca0000;
+  cursor: pointer;
+  font-family: "Space Grotesk", sans-serif;
+  font-weight: 500;
+  font-size: 1rem;
+  color: #fff;
+}
 section#auto-detalle .auto-cotiza form ul li {
   margin: 0;
   display: inline-block;
@@ -366,6 +380,16 @@ footer {
 @media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
   main {
     padding: 0.5rem 0 0.5rem 0;
+  }
+
+  #auto-detalle {
+    flex-direction: column;
+  }
+  #auto-detalle .auto-caracteristicas {
+    width: 100%;
+  }
+  #auto-detalle .auto-detalle {
+    width: 100%;
   }
 }
 

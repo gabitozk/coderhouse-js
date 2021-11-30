@@ -229,10 +229,21 @@ for (let trash of trashFavorito) {
 
 function eliminarFavoritoHeader(e) {
   let carId = e.target.parentNode.querySelector("#favHeaderId").textContent;
+  let cards = document.querySelectorAll('.card-autos');
+  
+  ///Cambia el estilo del 'fav' en el card
+  for (let card of cards) {
+    if(card.querySelector('.carId').textContent == carId) {
+      card.querySelector('.heartM').classList.remove("fas");
+      card.querySelector('.heartM').classList.add("far");
+      card.querySelector('.heartM').style.color = "black";
+    }
+  }
 
   e.target.parentNode.parentNode.remove();
 
   localStorage.removeItem(carId);
+
 }
 
 /*COTIZAR*/
@@ -345,12 +356,8 @@ function insertarFormulario(e) {
 
 function confirmarPago(precio, email, nombre) {
   setTimeout (function() { 
-
-
-    let modal = document.querySelector('#modal-pago');
-    //modal.style.display = "block";
     
-    $(modal).fadeIn(500);
+    $('#modal-pago').fadeIn(500);
     
     let modalContenido = document.querySelector('.modal-contenido');
     modalContenido.innerHTML = `<span class="close">&times;</span>
@@ -366,6 +373,7 @@ function confirmarPago(precio, email, nombre) {
 
 }
 
+//Cierra el modal de pago con un fadeOut
 function cerrarModalPago(e) { 
   
   $('#modal-pago').fadeOut(400);

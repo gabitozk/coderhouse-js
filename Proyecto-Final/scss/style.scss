@@ -353,6 +353,21 @@ section#auto-detalle {
                 height: 35px;
             }
 
+            input[type=submit] {
+                display: block;
+                width: 100%;
+                height: 30px;
+                margin-top: 1rem;
+                border: none;
+                border-radius: 50px;
+                background-color: rgb(202, 0, 0);
+                cursor: pointer;
+                font-family: $fontFamily;
+                font-weight: 500;
+                font-size: 1rem;
+                color: #fff;
+            }
+
             ul {
                 li{
                     margin:0;
@@ -420,5 +435,17 @@ footer {
 @media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
     main {
         padding: 0.5rem 0 0.5rem 0;
+    }
+
+    #auto-detalle {
+        flex-direction: column;
+
+        .auto-caracteristicas {
+            width: 100%;
+        }
+
+        .auto-detalle {
+            width: 100%;
+        }
     }
 }
