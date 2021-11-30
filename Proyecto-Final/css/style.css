@@ -391,6 +391,10 @@ footer {
   #auto-detalle .auto-detalle {
     width: 100%;
   }
+
+  .card-autos div.bloque-2 button.boton-cotizar {
+    width: 100%;
+  }
 }
 
 /*# sourceMappingURL=style.css.map */

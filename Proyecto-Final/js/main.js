@@ -6,7 +6,6 @@ let autos = (function () {
   let json = null;
   $.ajax({
     async: false,
-    global: false,
     url: urlCars,
     dataType: "json",
     success: function (data) {
@@ -99,12 +98,20 @@ function filtroCategoria(e) {
       divCard.innerHTML = cardAuto;
 
       contenedorListado.appendChild(divCard);
+
+      e.currentTarget.classList.add("activo");
+      
+      let fav = document.querySelectorAll('.fa-heart'); 
+      $(fav).click(agregarFavorito);
     }
   } else if(!autosFilter.length && categoria !== "Todos"){
     return;
   }
   else {
     insertarVehiculos();
+
+    let fav = document.querySelectorAll('.fa-heart');
+    $(fav).click(agregarFavorito);
   }
 
   let classFilter = document.querySelectorAll(".filter");
@@ -128,6 +135,10 @@ const favsOnLocal = [];
 const botonFav = document.querySelectorAll(".fa-heart");
 const cardAutos = document.querySelectorAll(".card-autos");
 const favHeader = document.querySelector("#favoritos");
+
+for (let fav of botonFav) {
+  fav.addEventListener("click", agregarFavorito);
+}
 
 $("#dropdown-favoritos").click(function () {
   $("#favoritos").fadeToggle(200);
@@ -171,9 +182,6 @@ function cargarFavoritos() {
 
 cargarFavoritos();
 
-for (let fav of botonFav) {
-  fav.addEventListener("click", agregarFavorito);
-}
 
 ///Agrega vehiculo favorito
 function agregarFavorito(e) {
