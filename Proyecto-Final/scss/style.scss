@@ -327,7 +327,11 @@ section#auto-detalle {
 
         form {
             margin-top: 1rem;
-            
+
+            h3 {
+                margin-top: 1rem;
+            }
+
             label {
                 display: block;
                 margin-top: 0.5rem;
@@ -349,7 +353,7 @@ section#auto-detalle {
                 height: 35px;
             }
 
-            ul{
+            ul {
                 li{
                     margin:0;
                     display: inline-block;
@@ -381,6 +385,10 @@ section#auto-detalle {
     border: 1px solid #888;
     border-radius: 0.5rem;
     width: 60%;
+
+    p{
+        margin-top: 1rem;
+    }
 }
 
 footer {

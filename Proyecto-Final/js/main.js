@@ -305,22 +305,20 @@ function cotizar(e) {
 
 function insertarFormulario(e) {
   let precio = e.target.parentNode.querySelector('b').textContent;
+  
   let divCompra = document.querySelector(".auto-cotiza");
   
   divCompra.innerHTML = `<h2>Total a pagar: ${precio}</h2>
                          
-                         <form id="datos-personales">
+                         <form id="form-datos-pago">
                           <h3>Ingresá tus datos</h3>
                           <label>Nombre</label>
-                          <input type="text" placeholder="Ingresá tu nombre" required>
+                          <input type="text" id="input-nombre" placeholder="Ingresá tu nombre" required>
                           <label>Apellido</label>
-                          <input type="text" placeholder="Ingresá tu apellido" required>
+                          <input type="text" id="input-apellido" placeholder="Ingresá tu apellido" required>
                           <label>Email</label>
-                          <input type="email" placeholder="Ingresá tu email" required>
-                         </form>  
-
-                         
-                          <form id="metodo-pago">
+                          <input type="email" id="input-email" placeholder="Ingresá tu email" required>
+                  
                           <h3>Método de pago</h3>
                           <ul>
                             <li><i class="fab fa-cc-visa"></i></li>
@@ -331,30 +329,36 @@ function insertarFormulario(e) {
                           <input type="number" required>
                           <label>Código de seguridad</label>
                           <input type="number" required>
-                          <input type="button" value="Pagar" id="confirmar-pago" onclick="comprar()">
+                          <input type="submit" value="Pagar" id="confirmar-pago"">
                          </form>
                         `
-  precioForm = precio;
+
+  $('#form-datos-pago').submit(function(e) {
+
+    e.preventDefault();
+
+    confirmarPago(precio, $('#input-email').val(), $('#input-nombre').val());
+
+  })
 }
 
-let precioForm;
 
-function comprar() {
+function confirmarPago(precio, email, nombre) {
   setTimeout (function() { 
 
 
     let modal = document.querySelector('#modal-pago');
-    modal.style.display = "block";
-  
+    //modal.style.display = "block";
+    
+    $(modal).fadeIn(500);
+    
     let modalContenido = document.querySelector('.modal-contenido');
-    modalContenido.innerHTML = `<h2>Te confirmamos el pago!</h2>
-                                <h4>Pagaste total ${precioForm}</h4>
-                                <p></p>`
+    modalContenido.innerHTML = `<h2>${nombre}, te confirmamos el pago!</h2>
+                                <h4>Pagaste total ${precio}</h4>
+                                <p>Te estaremos enviando toda la info a tu email: ${email}</p>`
+    }, 500);
 
-
-   }, 1000)
  
 }
-
 
 

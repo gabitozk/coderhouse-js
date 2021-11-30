@@ -277,6 +277,9 @@ section#auto-detalle .auto-cotiza .boton-compra {
 section#auto-detalle .auto-cotiza form {
   margin-top: 1rem;
 }
+section#auto-detalle .auto-cotiza form h3 {
+  margin-top: 1rem;
+}
 section#auto-detalle .auto-cotiza form label {
   display: block;
   margin-top: 0.5rem;
@@ -331,6 +334,9 @@ section#auto-detalle .auto-cotiza form ul li {
   border: 1px solid #888;
   border-radius: 0.5rem;
   width: 60%;
+}
+.modal-contenido p {
+  margin-top: 1rem;
 }
 
 footer {
