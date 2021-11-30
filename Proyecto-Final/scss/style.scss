@@ -389,7 +389,19 @@ section#auto-detalle {
     p{
         margin-top: 1rem;
     }
+
+    h4 {
+        color: rgb(42, 148, 0);
+    }
 }
+
+.close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+  }
 
 footer {
     width: 100%;

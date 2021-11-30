@@ -353,12 +353,22 @@ function confirmarPago(precio, email, nombre) {
     $(modal).fadeIn(500);
     
     let modalContenido = document.querySelector('.modal-contenido');
-    modalContenido.innerHTML = `<h2>${nombre}, te confirmamos el pago!</h2>
+    modalContenido.innerHTML = `<span class="close">&times;</span>
+                                <h2>${nombre}, te confirmamos el pago!</h2>
                                 <h4>Pagaste total ${precio}</h4>
                                 <p>Te estaremos enviando toda la info a tu email: ${email}</p>`
+
+    //Boton 'X' del modal
+    let span = document.querySelector('.close');
+    span.addEventListener('click', cerrarModalPago);
+
     }, 500);
 
- 
 }
 
+function cerrarModalPago(e) { 
+  
+  $('#modal-pago').fadeOut(400);
+
+}
 

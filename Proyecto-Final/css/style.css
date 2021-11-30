@@ -338,6 +338,17 @@ section#auto-detalle .auto-cotiza form ul li {
 .modal-contenido p {
   margin-top: 1rem;
 }
+.modal-contenido h4 {
+  color: #2a9400;
+}
+
+.close {
+  color: #aaaaaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+}
 
 footer {
   width: 100%;
