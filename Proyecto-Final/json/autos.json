@@ -82,9 +82,24 @@
             "transmision": "manual"
         },
         "categoria": "Camionetas"
+    },
+
+    {
+        "id": 6,
+        "marca": "Peugeot",
+        "modelo": "208",
+        "anio": 2021,
+        "precioDia": 5390,
+        "imagen": "./img/208.png",
+        "puertas": 5,
+        "caracteristicas": {
+            "personas": 4,
+            "ac": true,
+            "valijas": 1,
+            "transmision": "manual"
+        },
+        "categoria": "Medianos"
     }
-
-
     
 
 ]

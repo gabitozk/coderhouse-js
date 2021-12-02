@@ -1,4 +1,4 @@
-/*JSON de autos como DB*/
+/*JSON de autos*/
 const urlCars =
   "./json/autos.json";
 
@@ -14,6 +14,11 @@ let autos = (function () {
   });
   return json;
 })();
+
+
+function guardarEnLocalStorage(clave, valor) {
+  localStorage.setItem(clave, valor);
+}
 
 function insertarVehiculos() {
   ///Inserta autos en el HTML con los vehiculos disponibles en el array
@@ -41,7 +46,7 @@ function insertarVehiculos() {
                                 <p>Precio final p/día</p>
                                 <h4>$${auto.precioDia}</h4>
                                 <button class="boton-cotizar">Cotizar</button>
-                                <i class="far fa-heart heartM"></i>
+                                <i class="far fa-heart heartM fa-lg"></i>
                             </div>`;
 
     let divCard = document.createElement("div");
@@ -57,7 +62,9 @@ function insertarVehiculos() {
 ///Llama a función
 insertarVehiculos();
 
-////Filtros categorias
+
+
+/////*FILTROS*////
 const botonFiltroCategoria = document.querySelectorAll(".filter");
 
 for (let boton of botonFiltroCategoria) {
@@ -71,6 +78,8 @@ function filtroCategoria(e) {
   contenedorListado.innerHTML = "";
 
   let autosFilter = autos.filter(auto => auto.categoria == categoria)
+
+  $("#resultado-vehiculos").text(autosFilter.length);
 
   if (autosFilter.length) {
     for (let auto of autosFilter) {
@@ -90,7 +99,7 @@ function filtroCategoria(e) {
                               <p>Precio final p/día</p>
                               <h4>$${auto.precioDia}</h4>
                               <button class="boton-cotizar">Cotizar</button>
-                              <i class="far fa-heart heartM"></i>
+                              <i class="far fa-heart heartM fa-lg"></i>
                           </div>`;
 
       let divCard = document.createElement("div");
@@ -129,8 +138,9 @@ function filtroCategoria(e) {
   botonCotizar.click(cotizar);
 }
 
-//////////FAVORITOS
 
+
+////*FAVORITOS*////
 const favsOnLocal = [];
 const botonFav = document.querySelectorAll(".fa-heart");
 const cardAutos = document.querySelectorAll(".card-autos");
@@ -182,7 +192,6 @@ function cargarFavoritos() {
 
 cargarFavoritos();
 
-
 ///Agrega vehiculo favorito
 function agregarFavorito(e) {
   let fav = e.target;
@@ -212,8 +221,10 @@ function agregarFavorito(e) {
 
     $(fav).removeClass("far").addClass("fas").css("color", "red");
 
-    localStorage.setItem(carId, JSON.stringify(car));
+    guardarEnLocalStorage(carId, JSON.stringify(car));
+  
   } else {
+    
     let spanId = favHeader.querySelectorAll("#favHeaderId");
 
     for (let item of spanId) {
@@ -228,7 +239,6 @@ function agregarFavorito(e) {
   }
 }
 
-////////////////
 let trashFavorito = document.querySelectorAll("#deleteFavHeader");
 
 for (let trash of trashFavorito) {
@@ -254,7 +264,9 @@ function eliminarFavoritoHeader(e) {
 
 }
 
-/*COTIZAR*/
+
+
+////*COTIZAR*////
 ///Llamo a todos los botones 'Cotizar'
 let botonCotizar = document.querySelectorAll(".boton-cotizar");
 
@@ -269,10 +281,20 @@ function cotizar(e) {
   let car = autos.find( e => e.id == id);
 
   contenedor.innerHTML = "";
-
   let section = document.createElement('section');
   let div = document.createElement('div');
   
+  let arrowBack = document.querySelector('#arrow-back');
+  let a = document.createElement('a');
+  let p = document.createElement('p');
+  p.textContent = "Volver a Inicio";
+  a.href ="./index.html";
+  let i = document.createElement('i');
+  i.classList.add("fas", "fa-arrow-left");
+  a.appendChild(i);
+  a.appendChild(p);
+  arrowBack.appendChild(a);
+
   let sectionAuto = section;
   sectionAuto.setAttribute('id', "auto-detalle");
 
@@ -306,7 +328,7 @@ function cotizar(e) {
   
   divCotiza.setAttribute('class', "auto-cotiza");
 
-  divCotiza.innerHTML = `<h2>Resumen de compra</h2>
+  divCotiza.innerHTML = `<h2>Seleccioná el paquete de días</h2>
                          <h5><span>$${car.precioDia}</span> p/día</h5>
                          <ul>
                           <li>Alquiler por 3 días total <b>$${car.precioDia * 3}</b><button class="boton-compra">Comprar</button></li>
@@ -356,13 +378,20 @@ function insertarFormulario(e) {
 
     e.preventDefault();
 
-    confirmarPago(precio, $('#input-email').val(), $('#input-nombre').val());
+    confirmarPago(precio, $('#input-email').val(), $('#input-nombre').val(), $('#input-apellido').val());
 
   })
 }
 
 
-function confirmarPago(precio, email, nombre) {
+function confirmarPago(precio, email, nombre, apellido) {
+  
+  let datos = { nombreUsuario: nombre, 
+                apellidoUsuario: apellido, 
+                emailUsuario: email };
+
+  guardarEnLocalStorage(apellido, JSON.stringify(datos));
+
   setTimeout (function() { 
     
     $('#modal-pago').fadeIn(500);
@@ -371,7 +400,8 @@ function confirmarPago(precio, email, nombre) {
     modalContenido.innerHTML = `<span class="close">&times;</span>
                                 <h2>${nombre}, te confirmamos el pago!</h2>
                                 <h4>Pagaste total ${precio}</h4>
-                                <p>Te estaremos enviando toda la info a tu email: ${email}</p>`
+                                <p>Ya podés retirar tu vehículo en nuestras sucursales</p>
+                                <p>Te estaremos enviando toda la info a tu email: <b>${email}</b></p>`
 
     //Boton 'X' del modal
     let span = document.querySelector('.close');

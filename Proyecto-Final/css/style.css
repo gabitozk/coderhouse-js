@@ -34,11 +34,28 @@ header nav ul li {
 header nav ul li i {
   vertical-align: baseline;
 }
+header a {
+  text-decoration: none;
+  color: inherit;
+}
+
+#arrow-back {
+  margin-left: 1rem;
+  margin-top: 1rem;
+}
+#arrow-back p {
+  display: inline-block;
+  margin-left: 0.5rem;
+}
+#arrow-back a {
+  text-decoration: none;
+  color: inherit;
+}
 
 #favoritos {
   position: absolute;
   top: 60px;
-  right: 100px;
+  right: 15px;
   display: none;
   width: 430px;
   height: auto;
@@ -87,10 +104,11 @@ header nav ul li i {
 
 main {
   width: 100%;
+  height: auto;
   display: flex;
   flex-direction: row;
   background-color: #f1f1f1;
-  margin: 1rem auto 1rem auto;
+  margin: 1rem auto 15% auto;
 }
 main section {
   width: 100%;
@@ -100,6 +118,9 @@ main section article#filtros-categorias {
   display: flex;
   flex-direction: row;
   margin-bottom: 1rem;
+  overflow-x: scroll;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x proximity;
 }
 
 #listado {
@@ -136,6 +157,7 @@ main section article#filtros-categorias {
 
 .card-autos {
   width: 100%;
+  min-height: 248px;
   padding: 0.8rem;
   background-color: #fff;
   border-radius: 0.5rem;
@@ -180,7 +202,7 @@ main section article#filtros-categorias {
   margin-bottom: 0.5rem;
 }
 .card-autos div.bloque-2 button.boton-cotizar {
-  width: 50%;
+  width: 80%;
   font-family: "Space Grotesk", sans-serif;
   font-weight: 400;
   font-size: 1rem;
@@ -262,7 +284,7 @@ section#auto-detalle .auto-cotiza ul li {
   margin-top: 1.5rem;
 }
 section#auto-detalle .auto-cotiza .boton-compra {
-  width: 20%;
+  width: 37%;
   height: 30px;
   margin-left: 1rem;
   border-radius: 1rem;
@@ -293,10 +315,25 @@ section#auto-detalle .auto-cotiza form input[type=text],
 section#auto-detalle .auto-cotiza form input[type=email] {
   width: 50%;
   height: 35px;
+  border-radius: 0.2rem;
+  border: 1px solid #9b9b9b;
+  font-family: "Space Grotesk", sans-serif;
+  padding-left: 0.5rem;
+}
+section#auto-detalle .auto-cotiza form input[type=text]::placeholder,
+section#auto-detalle .auto-cotiza form input[type=email]::placeholder {
+  padding-left: 0.5rem;
 }
 section#auto-detalle .auto-cotiza form input[type=number] {
   width: 40%;
   height: 35px;
+  border-radius: 0.2rem;
+  border: 1px solid #9b9b9b;
+  font-family: "Space Grotesk", sans-serif;
+  padding-left: 0.5rem;
+}
+section#auto-detalle .auto-cotiza form input[type=number]::placeholder {
+  padding-left: 0.5rem;
 }
 section#auto-detalle .auto-cotiza form input[type=submit] {
   display: block;
@@ -350,7 +387,7 @@ section#auto-detalle .auto-cotiza form ul li {
   width: 60%;
 }
 .modal-contenido p {
-  margin-top: 1rem;
+  margin-top: 1.2rem;
 }
 .modal-contenido h4 {
   color: #2a9400;
@@ -365,11 +402,10 @@ section#auto-detalle .auto-cotiza form ul li {
 }
 
 footer {
-  width: 100%;
-  height: 20vh;
-  margin-top: 4rem;
-  background-color: #313131;
   display: flex;
+  width: 100%;
+  height: 200px;
+  background-color: #313131;
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -385,15 +421,55 @@ footer {
   #auto-detalle {
     flex-direction: column;
   }
-  #auto-detalle .auto-caracteristicas {
+  #auto-detalle div.auto-caracteristicas {
+    width: 100%;
+    margin-bottom: 1rem;
+  }
+  #auto-detalle div.auto-cotiza {
     width: 100%;
   }
-  #auto-detalle .auto-detalle {
+  #auto-detalle div.auto-cotiza ul li {
+    display: flex;
+  }
+  #auto-detalle div.auto-cotiza form input[type=text],
+#auto-detalle div.auto-cotiza form input[type=email],
+#auto-detalle div.auto-cotiza form input[type=number] {
     width: 100%;
   }
 
-  .card-autos div.bloque-2 button.boton-cotizar {
+  .card-autos {
+    flex-direction: column;
+  }
+  .card-autos div.bloque-1 {
     width: 100%;
+  }
+  .card-autos div.bloque-2 {
+    width: 100%;
+    border-left: none;
+    padding-left: 0;
+    margin-top: 1.5rem;
+  }
+  .card-autos div.bloque-2 button.boton-cotizar {
+    width: 85%;
+    margin-right: 0.5rem;
+  }
+
+  .filter {
+    width: max-content;
+  }
+  .filter p {
+    margin-left: 0;
+  }
+  .filter img {
+    display: none;
+  }
+
+  #favoritos {
+    width: 93%;
+  }
+
+  .modal-contenido {
+    width: 90%;
   }
 }
 

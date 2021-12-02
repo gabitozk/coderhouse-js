@@ -43,12 +43,32 @@ header {
             }
         }
     }
+
+    a {
+        text-decoration: none;
+        color: inherit;
+    }
+}
+
+#arrow-back {
+    margin-left: 1rem;
+    margin-top: 1rem;
+    
+    p {
+        display: inline-block;
+        margin-left: 0.5rem;
+    }
+
+    a {
+        text-decoration: none;
+        color: inherit;
+    }
 }
 
 #favoritos /*UL*/ {
     position: absolute;
     top: 60px;
-    right: 100px;
+    right: 15px;
     display: none;
     width: 430px;
     height: auto;
@@ -104,10 +124,11 @@ header {
 
 main {
     width: 100%;
+    height: auto;
     display: flex;
     flex-direction: row;
     background-color: rgb(241, 241, 241);
-    margin: 1rem auto 1rem auto;
+    margin: 1rem auto 15% auto;
 
     section {
         width: 100%;
@@ -117,6 +138,9 @@ main {
             display: flex;
             flex-direction: row;
             margin-bottom: 1rem;
+            overflow-x: scroll;
+            overscroll-behavior-x: contain;
+            scroll-snap-type: x proximity;
         }
     }
 }
@@ -158,6 +182,7 @@ main {
 
 .card-autos {
     width: 100%;
+    min-height: 248px;
     padding: 0.8rem;
     background-color: #fff;
     border-radius: 0.5rem;
@@ -210,7 +235,7 @@ main {
         }
 
         button.boton-cotizar {
-            width: 50%;
+            width: 80%;
             font-family: $fontFamily;
             font-weight: 400;
             font-size: 1rem;
@@ -312,7 +337,7 @@ section#auto-detalle {
         }
 
         .boton-compra {
-            width: 20%;
+            width: 37%;
             height: 30px;
             margin-left: 1rem;
             border-radius: 1rem;
@@ -346,11 +371,27 @@ section#auto-detalle {
             input[type=email] {
                 width: 50%;
                 height: 35px;
+                border-radius: 0.2rem;
+                border: 1px solid rgb(155, 155, 155);
+                font-family: $fontFamily;
+                padding-left: 0.5rem;
+
+                &::placeholder {
+                    padding-left: 0.5rem;
+                }
             }
 
             input[type=number] {
                 width: 40%;
                 height: 35px;
+                border-radius: 0.2rem;
+                border: 1px solid rgb(155, 155, 155);
+                font-family: $fontFamily;
+                padding-left: 0.5rem;
+
+                &::placeholder {
+                    padding-left: 0.5rem;
+                }
             }
 
             input[type=submit] {
@@ -402,7 +443,7 @@ section#auto-detalle {
     width: 60%;
 
     p{
-        margin-top: 1rem;
+        margin-top: 1.2rem;
     }
 
     h4 {
@@ -419,11 +460,10 @@ section#auto-detalle {
   }
 
 footer {
-    width: 100%;
-    height: 20vh;
-    margin-top: 4rem;
-    background-color: rgb(49, 49, 49);
     display: flex;
+    width: 100%;
+    height: 200px;
+    background-color: rgb(49, 49, 49);
     flex-direction: column;
     justify-content: center;
     align-items: center;
@@ -440,16 +480,70 @@ footer {
     #auto-detalle {
         flex-direction: column;
 
-        .auto-caracteristicas {
+        div.auto-caracteristicas {
             width: 100%;
+            margin-bottom: 1rem;
         }
 
-        .auto-detalle {
+        div.auto-cotiza {
             width: 100%;
+
+            ul {
+                li {
+                    display: flex;
+                }
+            }
+
+            form {
+                input[type=text],
+                input[type=email],
+                input[type=number] {
+                    width: 100%;
+                }
+            }
+        }
+
+    }
+
+    .card-autos {
+        flex-direction: column;
+
+        div.bloque-1 {
+            width: 100%;
+        }
+        
+        div.bloque-2 {
+            width: 100%;
+            border-left: none;
+            padding-left: 0;
+            margin-top: 1.5rem;
+
+            button.boton-cotizar {
+                width: 85%;
+                margin-right: 0.5rem;
+            }
         }
     }
 
-    .card-autos div.bloque-2 button.boton-cotizar {
-        width: 100%;
-    }   
+    .filter {
+        width: max-content;
+
+        p {
+            margin-left: 0;
+        }
+
+        img {
+            display: none;
+        }
+    }
+
+    #favoritos {
+        width: 93%;
+    }
+
+    
+    .modal-contenido {
+        width: 90%;
+    }
 }
+
