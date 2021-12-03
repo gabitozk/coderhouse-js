@@ -59,10 +59,18 @@ function insertarVehiculos() {
   $("#listado").fadeIn(500);
 }
 
-///Llama a función
-insertarVehiculos();
+$("#progress-bar").animate({  
+                              width:'100%'   }, 
+                              1000,            
+                              function(){        
+                                $('#progress-bar').hide();
+                                insertarVehiculos();
+                                $('.boton-cotizar').click(cotizar);
+                                $('.fa-heart').click(agregarFavorito);
 
-
+                                console.log(cardAutos);
+                                cargarFavoritos();
+                           });
 
 /////*FILTROS*////
 const botonFiltroCategoria = document.querySelectorAll(".filter");
@@ -142,13 +150,10 @@ function filtroCategoria(e) {
 
 ////*FAVORITOS*////
 const favsOnLocal = [];
-const botonFav = document.querySelectorAll(".fa-heart");
 const cardAutos = document.querySelectorAll(".card-autos");
 const favHeader = document.querySelector("#favoritos");
 
-for (let fav of botonFav) {
-  fav.addEventListener("click", agregarFavorito);
-}
+//cargarFavoritos();
 
 $("#dropdown-favoritos").click(function () {
   $("#favoritos").fadeToggle(200);
@@ -190,7 +195,7 @@ function cargarFavoritos() {
   }
 }
 
-cargarFavoritos();
+
 
 ///Agrega vehiculo favorito
 function agregarFavorito(e) {
@@ -267,14 +272,6 @@ function eliminarFavoritoHeader(e) {
 
 
 ////*COTIZAR*////
-///Llamo a todos los botones 'Cotizar'
-let botonCotizar = document.querySelectorAll(".boton-cotizar");
-
-///Agrego un listener a cada boton
-for (let boton of botonCotizar) {
-  boton.addEventListener("click", cotizar);
-}
-
 function cotizar(e) {
   let contenedor = document.getElementById("content");
   let id = e.target.parentNode.parentNode.querySelector('.carId').textContent;
