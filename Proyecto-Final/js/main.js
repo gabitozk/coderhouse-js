@@ -15,13 +15,29 @@ let autos = (function () {
   return json;
 })();
 
+///Simula barra de carga
+$("#progress-bar").animate({  
+  width:'100%'  }, 
+  800,            
+  function(){        
+    $('#progress-bar').hide();
+  });
+
+///Llama a la funcion para insertar vehiculos
+insertarVehiculos();
+///Agrega el event handler a todos los botones de 'cotizar'
+$('.boton-cotizar').click(cotizar);
+///Agrega el event handler a todos los botones de 'favorito'
+$('.fa-heart').click(agregarFavorito);                             
+  
+
 
 function guardarEnLocalStorage(clave, valor) {
   localStorage.setItem(clave, valor);
 }
 
+/*Trae de JSON y carga todos los vehiculos en el html*/
 function insertarVehiculos() {
-  ///Inserta autos en el HTML con los vehiculos disponibles en el array
   let contenedorListado = document.querySelector("#listado");
   contenedorListado.innerHTML = "";
 
@@ -57,20 +73,9 @@ function insertarVehiculos() {
   }
 
   $("#listado").fadeIn(500);
+
 }
 
-$("#progress-bar").animate({  
-                              width:'100%'   }, 
-                              1000,            
-                              function(){        
-                                $('#progress-bar').hide();
-                                insertarVehiculos();
-                                $('.boton-cotizar').click(cotizar);
-                                $('.fa-heart').click(agregarFavorito);
-
-                                console.log(cardAutos);
-                                cargarFavoritos();
-                           });
 
 /////*FILTROS*////
 const botonFiltroCategoria = document.querySelectorAll(".filter");
@@ -87,10 +92,15 @@ function filtroCategoria(e) {
 
   let autosFilter = autos.filter(auto => auto.categoria == categoria)
 
+
   $("#resultado-vehiculos").text(autosFilter.length);
 
   if (autosFilter.length) {
     for (let auto of autosFilter) {
+      if (localStorage.length) {
+        console.log(localStorage)
+      }
+
       let cardAuto = `<div class="bloque-1">
                               <h3>${auto.marca} ${auto.modelo}</h3>
                               <p>Dentro de categoría <strong>${auto.categoria}</strong></p>
@@ -153,7 +163,7 @@ const favsOnLocal = [];
 const cardAutos = document.querySelectorAll(".card-autos");
 const favHeader = document.querySelector("#favoritos");
 
-//cargarFavoritos();
+cargarFavoritos();
 
 $("#dropdown-favoritos").click(function () {
   $("#favoritos").fadeToggle(200);
@@ -340,7 +350,7 @@ function cotizar(e) {
 
 }
 
-
+///Formulario de datos y pago
 function insertarFormulario(e) {
   let precio = e.target.parentNode.querySelector('b').textContent;
   
@@ -380,7 +390,7 @@ function insertarFormulario(e) {
   })
 }
 
-
+///Muestra modal de confirmación de pago
 function confirmarPago(precio, email, nombre, apellido) {
   
   let datos = { nombreUsuario: nombre, 
