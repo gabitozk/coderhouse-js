@@ -97,10 +97,6 @@ function filtroCategoria(e) {
 
   if (autosFilter.length) {
     for (let auto of autosFilter) {
-      if (localStorage.length) {
-        console.log(localStorage)
-      }
-
       let cardAuto = `<div class="bloque-1">
                               <h3>${auto.marca} ${auto.modelo}</h3>
                               <p>Dentro de categoría <strong>${auto.categoria}</strong></p>
@@ -131,7 +127,7 @@ function filtroCategoria(e) {
       let fav = document.querySelectorAll('.fa-heart'); 
       $(fav).click(agregarFavorito);
     }
-  } else if(!autosFilter.length && categoria !== "Todos"){
+  } else if(!autosFilter.length && categoria !== "Todos") {
     return;
   }
   else {
@@ -139,6 +135,26 @@ function filtroCategoria(e) {
 
     let fav = document.querySelectorAll('.fa-heart');
     $(fav).click(agregarFavorito);
+  }
+
+  ///Recarga los 'favs' en las cards
+  if (localStorage.length) {
+    let cards = document.querySelectorAll('.card-autos');
+
+    for (let i = 0; i < localStorage.length; i++) {
+      let key = localStorage.key(i);
+      
+      for(let j = 0; j < cards.length; j++){
+        let id = cards[j].querySelector('.carId').textContent;
+        let iFav = cards[j].querySelector('.bloque-2').querySelector('i');
+
+        if(id == key) {
+          iFav.classList.replace("far", "fas");
+          iFav.style.color = "red";
+        }
+      }
+
+    }
   }
 
   let classFilter = document.querySelectorAll(".filter");
